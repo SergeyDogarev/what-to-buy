@@ -37,7 +37,7 @@
         @click="addGood"
         depressed
         :disabled="!good.length || !price.length"
-        >Создать</v-btn>
+        >Добавить</v-btn>
 
         <v-row>
           <v-col
@@ -74,6 +74,7 @@
               <td>{{ item.price }} UAH</td>
               <td>
                 <v-btn
+                style="box-shadow: none"
                 class="mx-2"
                 fab
                 dark
@@ -137,7 +138,17 @@
         let total = 0
         this.goods.map((el) => {total += +el.price})
         return total
-      }
+      },
+      localeDate() {
+            // Конвертируем число в строку. Для этого существуют специальные методы
+            // toLocaleDateString() или toLocaleString() или toLocaleTimeString()
+            // Итоговая строка будет зависеть от локализации системы пользователя. 
+            // Для русской локали это будет "01.02.2020", 
+            // для американской "2/1/2020", 
+            // для немецкой — "1.2.2020"
+            // Вы НЕ должны устанавливать формат даты самостоятельно
+            return (new Date(Date.now())).toLocaleDateString() 
+        },
     },
     mounted() {
       this.updateStorage() // Получить все покупки из localstorage
